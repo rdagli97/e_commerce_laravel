@@ -80,6 +80,12 @@ class ProductController extends Controller
             'discount' => 'required|numeric|min:0|max:100',
         ]);
 
+        if ($product->user_id != auth()->user()->id) {
+            return response()->json([
+                'message' => 'Permission denied',
+            ], 403);
+        }
+
         $product->update([
             'discount' => $attrs['discount'],
         ]);

@@ -35,6 +35,7 @@ class ProductImageController extends Controller
         ]);
 
         return response()->json([
+            'message' => 'Photo added successfully',
             'productImage' => $productImage,
         ], 200);
     }
