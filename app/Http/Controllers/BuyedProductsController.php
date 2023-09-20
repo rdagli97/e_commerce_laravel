@@ -33,6 +33,7 @@ class BuyedProductsController extends Controller
                 'user_id' => $product->user_id,
                 'title' => $product->title,
                 'description' => $product->description,
+                'piece' => $attrs['piece'],
                 'price' => $product->price * $attrs['piece'],
                 'image' => $product->image,
             ]);
