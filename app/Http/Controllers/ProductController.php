@@ -100,7 +100,10 @@ class ProductController extends Controller
     public function getProducts()
     {
 
-        $products = Product::with('productImages', 'comments')->get();
+        $products = Product::with('productImages')
+            ->with('comments', function ($comments) {
+                return $comments->orderBy('created_at', 'desc')->with('comment_images')->get();
+            })->get();
 
 
         return response()->json([
@@ -114,7 +117,7 @@ class ProductController extends Controller
     {
         $products = Product::where('user_id', auth()->user()->id)
             ->with('comments', function ($comments) {
-                return $comments->orderBy('created_at', 'desc')->get();
+                return $comments->orderBy('created_at', 'desc')->with('comment_images')->get();
             })->with('productImages')->get();
 
         return response()->json([
